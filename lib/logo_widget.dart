@@ -5,7 +5,7 @@ class LogoWidget extends StatefulWidget {
   LogoWidget({Key? key}) : super(key: key);
   Color color = const Color(0xff72986F);
   Widget child = Padding(
-    padding: const EdgeInsets.symmetric(vertical: 50),
+    padding: const EdgeInsets.symmetric(vertical: 18),
     child: Image.asset("assets/logo.png"),
   );
   double height = 611;
