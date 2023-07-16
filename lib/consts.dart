@@ -20,7 +20,7 @@ MaterialColor colorToMaterialColor(Color color) {
 Map<String,dynamic> sizes = {
   "padding":44.0,
   "logo":{
-    "height":424.0,
+    "height":611.0,
     "width":1440.0,
   },
   "tag":{
@@ -61,11 +61,28 @@ Map<String,dynamic> sizes = {
     "width":150.0,
     "height":150.0,
   },
+  "nameField":{
+    "width":1325.0,
+    "height":247.0,
+  },
+  "phoneField":{
+    "width":1325.0,
+    "height":247.0,
+  },
+  "bioField":{
+    "width":1325.0,
+    "height":385.0,
+  },
+  "categoryCard":{
+    "width":1328.0,
+    "height":543.0,
+  }
 };
 
 double axisHeight = 3040;
 double axisWidth = 1440;
 double radius = 7.5;
+Color thirdColor = const Color(0xff89AE86);
 Color primaryColor = const Color(0xff72986F);
 Color secondaryGreen = const Color(0xffA0C09E);
 Color primaryBlack = const Color(0xff1A1A1A);
@@ -73,3 +90,6 @@ Color secondaryColor = const Color(0xff4D293E);
 Color primaryGrey = const Color(0xff595959);
 Color primaryOyster = const Color(0xff996E68);
 Color backgroundColor = const Color(0xffF2FEF1);
+
+List<IconData> iconList = [Icons.home_rounded,Icons.search,Icons.location_on_rounded,Icons.account_circle];
+List<String> imagesName = ["farm","search","locate","profile"];

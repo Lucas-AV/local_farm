@@ -11,7 +11,34 @@ class FarmPage extends StatefulWidget {
 }
 
 class _FarmPageState extends State<FarmPage> {
-
+  Widget viewFullListButton(){
+    return Padding(
+      padding: EdgeInsets.only(
+          bottom: convHeight(sizes["padding"])
+      ),
+      child: RawMaterialButton(
+        onPressed: (){},
+        constraints: const BoxConstraints(),
+        child: Container(
+          height: convHeight(sizes["item"]["height"]),
+          width: convWidth(sizes["item"]["width"]),
+          decoration: BoxDecoration(
+            color: primaryOyster,
+            borderRadius: BorderRadius.circular(radius),
+          ),
+          child: Center(
+              child: Text(
+                  "VIEW FULL LIST",
+                  style:GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 18
+                  )
+              )
+          ),
+        ),
+      ),
+    );
+  }
   double convHeight(double height){
     return MediaQuery.of(context).size.height*(height/axisHeight);
   }
@@ -106,6 +133,7 @@ class _FarmPageState extends State<FarmPage> {
       ),
     );
   }
+
   Widget itemColumn(){
     Widget item(){
       return Padding(
@@ -154,32 +182,9 @@ class _FarmPageState extends State<FarmPage> {
         ),
 
         // Item
-        item(),
-        item(),
-        item(),
-        Padding(
-          padding: EdgeInsets.only(
-              bottom: convHeight(sizes["padding"])
-          ),
-          child: Container(
-            height: convHeight(sizes["item"]["height"]),
-            width: convWidth(sizes["item"]["width"]),
-            decoration: BoxDecoration(
-              color: primaryOyster,
-              borderRadius: BorderRadius.circular(radius),
-            ),
-            child: Center(
-                child: Text(
-                    "VIEW FULL LIST",
-                    style:GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontSize: 18
-                    )
-                )
-            ),
-          ),
-        ),
-
+        for(int i = 0; i < 3; i++)
+          item(),
+        viewFullListButton(),
       ],
     );
   }
@@ -242,31 +247,9 @@ class _FarmPageState extends State<FarmPage> {
         ),
 
         // Item
-        item(),
-        item(),
-        item(),
-        Padding(
-          padding: EdgeInsets.only(
-              bottom: convHeight(sizes["padding"])
-          ),
-          child: Container(
-            height: convHeight(sizes["item"]["height"]),
-            width: convWidth(sizes["item"]["width"]),
-            decoration: BoxDecoration(
-              color: primaryOyster,
-              borderRadius: BorderRadius.circular(radius),
-            ),
-            child: Center(
-                child: Text(
-                    "VIEW FULL LIST",
-                    style:GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontSize: 18
-                    )
-                )
-            ),
-          ),
-        ),
+        for(int i = 0; i < 3; i++)
+          item(),
+        viewFullListButton(),
       ],
     );
   }
