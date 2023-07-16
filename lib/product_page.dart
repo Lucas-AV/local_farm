@@ -51,7 +51,7 @@ class _ProductPageState extends State<ProductPage> {
                           style: GoogleFonts.montserrat(
                               color: Colors.white,
                               fontWeight: FontWeight.w700,
-                              fontSize: constraints.maxWidth*0.14
+                              fontSize: 14
                           ),
                         );
                       },
