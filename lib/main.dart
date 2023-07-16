@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_farm/farm_page.dart';
+import 'package:local_farm/logo_widget.dart';
+import 'package:local_farm/profile_page.dart';
 import 'package:local_farm/search_page.dart';
 import "consts.dart";
 import 'package:flutter_svg/flutter_svg.dart';
@@ -110,58 +112,39 @@ class _MainPageState extends State<MainPage> {
   double convWidth(double width){
     return MediaQuery.of(context).size.width*(width/axisWidth);
   }
-  Widget logoContainer({Widget child = const SizedBox(),double height = 611,double multi = 1, Color color = const Color(0xff72986F)}){
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: convHeight(sizes["padding"]),
-      ),
-      child: Container(
-        height: convWidth(height)*multi,
-        width: convWidth(sizes["logo"]["width"]),
-        color: color,
-        child: child,
-      ),
-    );
-  }
 
   Widget locatePage(){
     return Column(
       children: [
-        logoContainer(
-          multi: 0.3,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              RawMaterialButton(
-                  onPressed: (){},
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(width: 24),
-                      Text(
-                        "City Neighborhood, 123",
-                        style: GoogleFonts.righteous(
-                            fontSize: 16,
-                            color: Colors.white
-                        ),
+        LogoWidget()
+        ..child = Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            RawMaterialButton(
+                onPressed: (){},
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(width: 24),
+                    Text(
+                      "City Neighborhood, 123",
+                      style: GoogleFonts.righteous(
+                          fontSize: 16,
+                          color: Colors.white
                       ),
-                      const Icon(Icons.keyboard_arrow_down,color: Colors.white)
-                    ],
-                  )
-              ),
-            ],
-          ),
-        ),
+                    ),
+                    const Icon(Icons.keyboard_arrow_down,color: Colors.white)
+                  ],
+                )
+            ),
+          ],
+        )
+        ..multi = 0.3,
       ],
     );
   }
 
-  Widget profilePage(){
-    return Column(
-      children: [],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +162,7 @@ class _MainPageState extends State<MainPage> {
                   const FarmPage(),
                   const SearchPage(),
                   locatePage(),
-                  profilePage(),
+                  const ProfilePage(),
                 ][pageIndex],
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'producer_widget.dart';
 
 MaterialColor colorToMaterialColor(Color color) {
   Map<int, Color> swatch = {
@@ -79,9 +80,71 @@ Map<String,dynamic> sizes = {
   }
 };
 
+List<String> exampleTags = ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"];
+
+List<Product> products = [
+  Product(
+      "Shimeji Mushrooms",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+  Product(
+      "Red Neck Chicken",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+  Product(
+      "Fresh tomatoes",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+  Product(
+      "Blueberry Jam",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+  Product(
+      "Blood Orange",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+  Product(
+      "Pomegranate",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+  Product(
+      "Watermelons",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+  Product(
+      "Corn grains",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+  Product(
+      "Milk Curd",
+      ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"]
+  ),
+];
+
+Producer producerExample = Producer("Producer", "Store name", ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5","Tag 6"], products);
+
+
+
+class Product {
+  String name;
+  List<String> tags;
+  Map<String,dynamic> nutritionFacts = {
+    "Carbohydrate":"",
+    "Phosphorus":"",
+    "Potassium":"",
+    "Calcium":"",
+    "Protein":"",
+    "Fiber":"",
+    "Iron":"",
+    "Zinc":"",
+  };
+  Product(this.name,this.tags);
+}
+
 double axisHeight = 3040;
 double axisWidth = 1440;
 double radius = 7.5;
+Color quadGreen = const Color(0xffD9E9D7);
 Color thirdColor = const Color(0xff89AE86);
 Color primaryColor = const Color(0xff72986F);
 Color secondaryGreen = const Color(0xffA0C09E);
@@ -93,3 +156,4 @@ Color backgroundColor = const Color(0xffF2FEF1);
 
 List<IconData> iconList = [Icons.home_rounded,Icons.search,Icons.location_on_rounded,Icons.account_circle];
 List<String> imagesName = ["farm","search","locate","profile"];
+List<String> categories = ["Mushrooms","Vegetables & Fruits","Grains & Cereals","Craft Drinks","Dairy Products"];
