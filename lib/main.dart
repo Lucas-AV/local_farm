@@ -141,6 +141,12 @@ class _MainPageState extends State<MainPage> {
           ],
         )
         ..multi = 0.3,
+        SizedBox(
+          height: MediaQuery.of(context).size.height - convHeight(611),
+          child: Center(
+            child: Image.asset("assets/locate.png",color: primaryColor,),
+          ),
+        ),
       ],
     );
   }

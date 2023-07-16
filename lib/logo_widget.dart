@@ -4,7 +4,10 @@ import 'consts.dart';
 class LogoWidget extends StatefulWidget {
   LogoWidget({Key? key}) : super(key: key);
   Color color = const Color(0xff72986F);
-  Widget child = const SizedBox();
+  Widget child = Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 125),
+    child: Image.asset("assets/logo.png"),
+  );
   double height = 611;
   double multi = 1;
 

@@ -21,7 +21,7 @@ class User{
 
 User templateUser = User(
   "Fulano de Tales Males Bragales",
-  "Passaword",
+  "Password",
   "tales.fulano@mail.com",
   "+00 000 00000-0000",
   "Bio",
@@ -65,8 +65,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-
-
   Widget fieldColumn(String title, Color background, {int maxLines = 1}){
     TextEditingController textEditingController = TextEditingController();
     Map<String,dynamic> field = {
@@ -74,7 +72,10 @@ class _ProfilePageState extends State<ProfilePage> {
       "Email":templateUser.email,
       "Phone":templateUser.phone,
       "Bio":templateUser.bio,
+      "Change Password":"",
       "Password":templateUser.password,
+      "New Password":"",
+      "Confirm Password":"",
       "Food Restriction":"",
     };
     textEditingController.text = field[title];
@@ -88,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: EdgeInsets.only(bottom: convHeight(30)),
               child: Text(
-                title,
+                title.replaceAll("Change ", ""),
                 style: GoogleFonts.montserrat(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
@@ -96,10 +97,136 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
+            title == "Change Password"? RawMaterialButton(
+              constraints: const BoxConstraints(),
+              onPressed: (){
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    contentPadding: EdgeInsets.zero,
+                    actionsAlignment: MainAxisAlignment.center,
+                    backgroundColor: Colors.white,
+                    content: Padding(
+                      padding: EdgeInsets.only(top: convHeight(85)),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: convWidth(52)+10),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            fieldColumn("Password", quadGreen),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: fieldColumn("New Password", quadGreen),
+                            ),
+                            fieldColumn("Confirm Password", quadGreen),
+                          ],
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: convHeight(77)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                width: convWidth(423),
+                                height: convHeight(146),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffFF3C3C),
+                                  borderRadius: BorderRadius.circular(radius),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 3,
+                                      offset: Offset(0,2),
+                                    ),
+                                  ]
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Cancel",
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: convWidth(179)),
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                width: convWidth(423),
+                                height: convHeight(146),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff3E9A37),
+                                  borderRadius: BorderRadius.circular(radius),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 3,
+                                      offset: Offset(0,2),
+                                    ),
+                                  ]
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Save",
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                );
+              },
+              child: Container(
+                width: convWidth(1325),
+                height: convHeight(180),
+                decoration: BoxDecoration(
+                  color: background,
+                  borderRadius: BorderRadius.circular(radius),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 3,
+                        offset: Offset(0,3)
+                    )
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    "Change Password",
+                    style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                      fontSize: 18
+                    ),
+                  )
+                )
+              )
+            ) :
             Container(
               width: convWidth(1325),
               height: convHeight(
-                  title == "Food Restriction"?200:180
+                title == "Food Restriction"?200:180
               )*maxLines,
               decoration: BoxDecoration(
                 color: background,
@@ -122,42 +249,49 @@ class _ProfilePageState extends State<ProfilePage> {
                           scrollDirection: Axis.horizontal,
                           children: [
                             for(String i in templateUser.foodRestriction)
-                              Padding(
-                                padding: EdgeInsets.only(right: convWidth(42)),
+                              GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    templateUser.foodRestriction.remove(i);
+                                  });
+                                },
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
-                                  child: Container(
-                                    constraints: BoxConstraints(
-                                      minWidth: convWidth(400),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xffBFDCBA),
-                                      borderRadius: BorderRadius.circular(radius),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          blurRadius: 3,
-                                        )
-                                      ]
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          FittedBox(
-                                            child: Text(
-                                              i,
-                                              style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 12
+                                  padding: EdgeInsets.only(right: convWidth(42)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                        minWidth: convWidth(400),
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffBFDCBA),
+                                        borderRadius: BorderRadius.circular(radius),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.black26,
+                                            blurRadius: 3,
+                                          )
+                                        ]
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            FittedBox(
+                                              child: Text(
+                                                i,
+                                                style: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          const Icon(Icons.close_rounded,color: Colors.black,size: 16)
-                                        ],
-                                      ),
-                                    )
+                                            const Icon(Icons.close_rounded,color: Colors.black,size: 16)
+                                          ],
+                                        ),
+                                      )
+                                    ),
                                   ),
                                 ),
                               ),
@@ -165,6 +299,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            templateUser.foodRestriction.add(
+                              "Restriction ${templateUser.foodRestriction.length+1}"
+                            );
+                          });
+                        },
                         child: Container(
                           width: 35,
                           color: secondaryColor,
@@ -173,16 +314,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                     ],
                   ) :
-                  title == "Password"? Center(
-                    child: Text(
-                      "Change Password",
-                      style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        fontSize: 18
-                      ),
-                    )
-                  ) :
                   TextFormField(
                     maxLines: maxLines,
                     controller: textEditingController,
@@ -190,8 +321,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: background == secondaryColor? Colors.white:secondaryColor,
                       fontWeight: FontWeight.w500,
                     ),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       border: InputBorder.none,
+                      hintStyle: GoogleFonts.montserrat(
+                        color: secondaryColor,
+                        fontWeight: FontWeight.w500
+                      ),
+                      hintText: title.contains("Password")? title.replaceAll("New ", ""):""
                     ),
                     cursorColor: background == secondaryColor? Colors.white:primaryColor,
                   ),
@@ -206,65 +342,73 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              top: convHeight(sizes["padding"])+2,
-              right: convWidth(58),
-              left: convWidth(58),
-              bottom: convHeight(73),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: convHeight(700),
-                  width: convWidth(700),
-                  decoration: BoxDecoration(
-                    color: primaryBlack,
-                    borderRadius: BorderRadius.circular(radius),
-                  ),
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          controller: scrollController,
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: convHeight(sizes["padding"])+2,
+                  right: convWidth(58),
+                  left: convWidth(58),
+                  bottom: convHeight(73),
                 ),
-              ],
-            ),
-          ),
-          fieldColumn(
-            "Name",
-            quadGreen
-          ),
-          fieldColumn(
-            "Email",
-            quadGreen
-          ),
-          fieldColumn(
-            "Phone",
-            secondaryColor,
-          ),
-          fieldColumn(
-            "Bio",
-            secondaryColor,
-            maxLines: 3
-          ),
-          fieldColumn(
-            "Food Restriction",
-            secondaryColor,
-            maxLines: 1
-          ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: convHeight(700),
+                      width: convWidth(700),
+                      decoration: BoxDecoration(
+                        color: primaryBlack,
+                        borderRadius: BorderRadius.circular(radius),
+                      ),
+                      child: const Center(
+                        child: Icon(Icons.account_circle,color: Colors.white,size: 100),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              fieldColumn(
+                "Name",
+                quadGreen
+              ),
+              fieldColumn(
+                "Email",
+                quadGreen
+              ),
+              fieldColumn(
+                "Phone",
+                secondaryColor,
+              ),
+              fieldColumn(
+                "Bio",
+                secondaryColor,
+                maxLines: 3
+              ),
+              fieldColumn(
+                "Food Restriction",
+                secondaryColor,
+                maxLines: 1
+              ),
 
-          fieldColumn(
-            "Password",
-            primaryColor,
-            maxLines: 1
+              fieldColumn(
+                "Change Password",
+                primaryColor,
+                maxLines: 1
+              ),
+              SizedBox(
+                height: convHeight(sizes["appbar"]["height"])+5,
+              )
+
+            ],
           ),
-          SizedBox(
-            height: convHeight(sizes["appbar"]["height"])+5,
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

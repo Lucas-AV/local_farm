@@ -86,7 +86,8 @@ class _FarmPageState extends State<FarmPage> {
     return Column(
       children: [
         // Logo
-        LogoWidget(),
+        LogoWidget()
+        ..height = 424,
 
         // Tag
         TagList(tags: exampleTags),
