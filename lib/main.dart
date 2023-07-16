@@ -1,6 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:local_farm/farm_page.dart';
+import "consts.dart";
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,235 +18,153 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'LocalFarm',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: colorToMaterialColor(Colors.white),
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const MainPage(),
     );
   }
 }
 
-
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class Category {
-  String image;
-  String name;
-
-  Category(this.name,this.image);
-}
-
-class _HomePageState extends State<HomePage> {
-
-  Widget appRowBar(){
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 8,top: 4),
-            child: SizedBox(width: 24),
-          ),
-          RawMaterialButton(
+class _MainPageState extends State<MainPage> {
+  bool darkMode = false;
+  int pageIndex = 0;
+  Widget logoContainer(){
+    return Padding(
+      padding: EdgeInsets.only(
+          bottom: convHeight(sizes["padding"])
+      ),
+      child: Container(
+        height: convWidth(sizes["logo"]["height"])*.4,
+        width: convWidth(sizes["logo"]["width"]),
+        color: primaryColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            RawMaterialButton(
               onPressed: (){},
               child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(width: 24),
                   Text(
                     "City Neighborhood, 123",
                     style: GoogleFonts.righteous(
                       fontSize: 16,
+                      color: Colors.white
                     ),
                   ),
-                  const Icon(Icons.keyboard_arrow_down,color: Colors.green)
+                  const Icon(Icons.keyboard_arrow_down,color: Colors.white)
                 ],
               )
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8,top: 0),
-            child: GestureDetector(child: const Icon(Icons.notifications_none_rounded)),
-          ),
-        ],
-      );
+          ],
+        ),
+      ),
+    );
   }
 
-  Widget columnRowCategory(){
-    List<Category> categories = [
-      Category("Grãos e Cereais", ""),
-      Category("Derivados de Leite", ""),
-      Category("Ervas e Temperos", ""),
-      Category("Bebidas artesanais", ""),
-      Category("Frutas e Vegetais", ""),
-      Category("", ""),
-      Category("", ""),
-      Category("", ""),
-
-    ];
-    Color fontColor = Colors.black;
-    Color backgroundColor = Colors.white;
-    TextStyle style = GoogleFonts.righteous(
-      color: fontColor.withOpacity(0.5),
-      shadows: [
-        const Shadow(
-          color: Colors.black,
-          blurRadius: 1
-        )
-      ]
-    );
-
-    Widget categoryButton(Category category){
-      return RawMaterialButton(
-        constraints: const BoxConstraints(),
-        onPressed: (){},
-        child: Container(
-          height: 85,
-          width: 85,
+  Widget appBar(){
+    List<IconData> iconList = [Icons.home_rounded,Icons.search,Icons.location_on_rounded,Icons.account_circle];
+    List<String> imagesName = ["farm","search","locate","profile"];
+    Widget buttonBox(int index, String image){
+      return GestureDetector(
+        onTap: (){
+          setState(() {
+            pageIndex = index;
+          });
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 100),
+          height: 50,
+          width: 50,
           decoration: BoxDecoration(
-            color: backgroundColor,
-            boxShadow:  [
-              const BoxShadow(
-                color: Colors.black26,
-                blurRadius: 5,
-                offset: Offset(0,5),
-              ),
-              BoxShadow(
-                color: backgroundColor,
-                blurRadius: 1,
-              ),
-            ],
-            borderRadius: BorderRadius.circular(7.5),
+            borderRadius: BorderRadius.circular(7),
+            color: primaryColor,
+            boxShadow: [
+              if(index == pageIndex)
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 5,
+                  offset: const Offset(0,4)
+                ),
+            ]
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(category.name,style: style,textAlign: TextAlign.center),
-              ],
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Image.asset("assets/$image.png",color: Colors.white),
+              // Image.asset("assets/$image.png",color: Colors.white),
             ),
           ),
         ),
       );
     }
 
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          for(int r = 0; r < 2; r++)
-            Padding(
-              padding: EdgeInsets.only(top: r != 0? 12:6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  for(int i = 0; i < 4; i++)
-                    categoryButton(categories[i+(4*r)])
-                ],
-              ),
-            ),
-        ],
-      )
+      padding: EdgeInsets.symmetric(horizontal: convWidth(0),vertical: convHeight(0)),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: convHeight(sizes['appbar']['height'])+5,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.circular(0),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black54,
+              blurRadius: 3
+            )
+          ]
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: convWidth(99)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for(int i = 0; i < 2; i++)
+                buttonBox(i,imagesName[i]),
+              for(int i = 2; i < 4; i++)
+                buttonBox(i,imagesName[i]),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  double convHeight(double height){
+    return MediaQuery.of(context).size.height*(height/axisHeight);
+  }
+  double convWidth(double width){
+    return MediaQuery.of(context).size.width*(width/axisWidth);
+  }
+
+  Widget searchPage(){
+    return Column(
+      children: [],
     );
   }
 
-  BottomNavigationBar bottomNavigationBar(){
-    Color bottomNavBarButtonColor = Colors.black;
-    return BottomNavigationBar(
-      currentIndex: 0,
-      items: [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined,color: bottomNavBarButtonColor),
-            activeIcon: Icon(Icons.home_rounded,color: bottomNavBarButtonColor),
-            label: "Início"
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search,color: bottomNavBarButtonColor),
-          activeIcon: Icon(Icons.home_rounded,color: bottomNavBarButtonColor),
-          label: "Busca",
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: "asd"
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: "asd"
-        ),
+  Widget locatePage(){
+    return Column(
+      children: [
+        logoContainer(),
       ],
     );
   }
 
-  Widget outdoorListView(){
-    return SizedBox(
-      height: 150,
-      width: double.infinity,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          for(int i = 0; i < 100; i++)
-            Container(
-              height: 150,
-              width: 150,
-              color: i % 2 == 0? Colors.red:Colors.white,
-            )
-        ],
-      ),
-    );
-  }
-
-  Widget searchButton(){
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: RawMaterialButton(
-        constraints: const BoxConstraints(),
-        onPressed: (){},
-        child: Container(
-          height: 50,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 3,
-                  offset: Offset(0,3)
-              )
-            ],
-          ),
-          child: Row(
-            children: [
-              Padding(
-                  padding: const EdgeInsets.only(left: 12,right: 12),
-                  child: SizedBox(
-                      height: 18,
-                      width: 18,
-                      child: Image.asset('assets/search.png')
-                  )
-              ),
-              const Expanded(
-                child: SizedBox(),
-                // TextField(
-                //   decoration: const InputDecoration(
-                //     border: InputBorder.none,
-                //   ),
-                //   cursorWidth: 2,
-                //   style: GoogleFonts.righteous(),
-                // ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 12,right: 12),
-                child: Icon(MdiIcons.microphone),
-              ),
-            ],
-          ),
-        ),
-      ),
+  Widget profilePage(){
+    return Column(
+      children: [],
     );
   }
 
@@ -251,18 +172,28 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              appRowBar(),
-              columnRowCategory(),
-              const SizedBox(height: 12),
-              searchButton(),
-            ],
-          ),
-        ),
+        backgroundColor: backgroundColor,
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: double.infinity,
+              child: SingleChildScrollView(
+                child: [
+                  const FarmPage(),
+                  const SizedBox(),
+                  locatePage(),
+                  profilePage(),
+                ][pageIndex],
+              ),
+            ),
+            appBar(),
+          ],
+        )
       ),
     );
   }
 }
+
 

@@ -41,6 +41,8 @@ dependencies:
   flutter_google_location_picker: ^0.0.3
   material_design_icons_flutter: ^7.0.7296
   google_fonts: ^4.0.4
+  carousel_slider: ^4.2.1
+  flutter_svg: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +72,10 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/search.png
+    - assets/locate.png
+    - assets/profile.png
+    - assets/farm.png
+    - assets/farm.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
