@@ -239,98 +239,96 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ],
               ),
-              child: Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: convWidth(title == "Food Restriction"? 29:42)),
-                  child: title == "Food Restriction"? Row(
-                    children: [
-                      Expanded(
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            for(String i in templateUser.foodRestriction)
-                              GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    templateUser.foodRestriction.remove(i);
-                                  });
-                                },
+              child: Padding(
+                padding: EdgeInsets.only(left: convWidth(title == "Food Restriction"? 29:42)),
+                child: title == "Food Restriction"? Row(
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          for(String i in templateUser.foodRestriction)
+                            GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  templateUser.foodRestriction.remove(i);
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(right: convWidth(42)),
                                 child: Padding(
-                                  padding: EdgeInsets.only(right: convWidth(42)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                        minWidth: convWidth(400),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xffBFDCBA),
-                                        borderRadius: BorderRadius.circular(radius),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.black26,
-                                            blurRadius: 3,
-                                          )
-                                        ]
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            FittedBox(
-                                              child: Text(
-                                                i,
-                                                style: GoogleFonts.montserrat(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 12
-                                                ),
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                      minWidth: convWidth(400),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffBFDCBA),
+                                      borderRadius: BorderRadius.circular(radius),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.black26,
+                                          blurRadius: 3,
+                                        )
+                                      ]
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          FittedBox(
+                                            child: Text(
+                                              i,
+                                              style: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 12
                                               ),
                                             ),
-                                            const Icon(Icons.close_rounded,color: Colors.black,size: 16)
-                                          ],
-                                        ),
-                                      )
-                                    ),
+                                          ),
+                                          const Icon(Icons.close_rounded,color: Colors.black,size: 16)
+                                        ],
+                                      ),
+                                    )
                                   ),
                                 ),
                               ),
-                          ],
-                        ),
+                            ),
+                        ],
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            templateUser.foodRestriction.add(
-                              "Restriction ${templateUser.foodRestriction.length+1}"
-                            );
-                          });
-                        },
-                        child: Container(
-                          width: 35,
-                          color: secondaryColor,
-                          child: const Icon(Icons.add,color: Colors.white),
-                        ),
-                      )
-                    ],
-                  ) :
-                  TextFormField(
-                    maxLines: maxLines,
-                    controller: textEditingController,
-                    style: GoogleFonts.montserrat(
-                      color: background == secondaryColor? Colors.white:secondaryColor,
-                      fontWeight: FontWeight.w500,
                     ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: GoogleFonts.montserrat(
+                    GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          templateUser.foodRestriction.add(
+                            "Restriction ${templateUser.foodRestriction.length+1}"
+                          );
+                        });
+                      },
+                      child: Container(
+                        width: 35,
                         color: secondaryColor,
-                        fontWeight: FontWeight.w500
+                        child: const Icon(Icons.add,color: Colors.white),
                       ),
-                      hintText: title.contains("Password")? title.replaceAll("New ", ""):""
-                    ),
-                    cursorColor: background == secondaryColor? Colors.white:primaryColor,
+                    )
+                  ],
+                ) :
+                TextFormField(
+                  maxLines: maxLines,
+                  controller: textEditingController,
+                  style: GoogleFonts.montserrat(
+                    color: background == secondaryColor? Colors.white:secondaryColor,
+                    fontWeight: FontWeight.w500,
                   ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintStyle: GoogleFonts.montserrat(
+                      color: secondaryColor,
+                      fontWeight: FontWeight.w500
+                    ),
+                    hintText: title.contains("Password")? title.replaceAll("New ", ""):""
+                  ),
+                  cursorColor: background == secondaryColor? Colors.white:primaryColor,
                 ),
               ),
             ),
